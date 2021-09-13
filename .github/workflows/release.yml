@@ -31,3 +31,9 @@ jobs:
           cd alpine
           make ci
           make release
+
+      - name: Build debian image
+        run: |
+          cd debian
+          make ci
+          make release
