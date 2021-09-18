@@ -10,7 +10,7 @@ DOCKER_PLATFORMS := linux/amd64 linux/arm64
 PLATFORM         ?= $(firstword $(DOCKER_PLATFORMS))
 VERSION          = $(TAG)_$(subst /,_,$(PLATFORM))
 
-HAPROXY_IMAGE    = haproxytech/haproxy-debian:$(GIT_TAG)
+BASE_IMAGE       = haproxytech/haproxy-debian:$(GIT_TAG)
 
 BUILD_DIRS := bin
 
@@ -36,7 +36,7 @@ container: $(BUILD_DIRS)
 	@echo "container: $(IMAGE):$(VERSION)"
 	@rm -rf bin/.dockerfile;                             \
 	sed                                                  \
-	    -e 's|{HAPROXY_IMAGE}|$(HAPROXY_IMAGE)|g'        \
+	    -e 's|{BASE_IMAGE}|$(BASE_IMAGE)|g'        \
 	    Dockerfile > bin/.dockerfile;                    \
 	docker buildx build --platform $(PLATFORM) --load --pull -t $(IMAGE):$(VERSION) -f bin/.dockerfile .
 	@echo

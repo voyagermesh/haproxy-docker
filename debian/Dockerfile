@@ -14,7 +14,7 @@ RUN set -x \
 
 
 
-FROM {HAPROXY_IMAGE}
+FROM {BASE_IMAGE}
 
 # Installs required packages
 # Change timezone to UTC
