@@ -51,6 +51,18 @@ docker-manifest:
 	docker manifest create -a $(IMAGE):$(TAG) $(foreach PLATFORM,$(DOCKER_PLATFORMS),$(IMAGE):$(TAG)_$(subst /,_,$(PLATFORM)))
 	docker manifest push $(IMAGE):$(TAG)
 
+# https://stackoverflow.com/a/3732456
+VER_MAJOR := $(shell echo $(GIT_TAG) | cut -f1 -d.)
+VER_MINOR := $(shell echo $(GIT_TAG) | cut -f2 -d.)
+Mm        := $(VER_MAJOR).$(VER_MINOR)-debian
+
+.PHONY: docker-manifest
+docker-manifest:
+	docker manifest create -a $(IMAGE):$(TAG) $(foreach PLATFORM,$(DOCKER_PLATFORMS),$(IMAGE):$(TAG)_$(subst /,_,$(PLATFORM)))
+	docker manifest push $(IMAGE):$(TAG)
+	docker manifest create -a $(IMAGE):$(Mm) $(foreach PLATFORM,$(DOCKER_PLATFORMS),$(IMAGE):$(TAG)_$(subst /,_,$(PLATFORM)))
+	docker manifest push $(IMAGE):$(Mm)
+
 .PHONY: release
 release:
 	@$(MAKE) all-push docker-manifest --no-print-directory
