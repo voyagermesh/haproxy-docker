@@ -19,8 +19,9 @@ FROM {BASE_IMAGE}
 # Installs required packages
 # Change timezone to UTC
 RUN set -x \
-  && apk add --update --no-cache ca-certificates tzdata lua5.3 lua-socket lua-ossl \
-  && echo 'Etc/UTC' > /etc/timezone
+  && apk add --update --no-cache ca-certificates tzdata lua5.3 lua-socket lua-ossl libcap \
+  && echo 'Etc/UTC' > /etc/timezone \
+  && setcap 'cap_net_bind_service=+ep' $(which haproxy)
 
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8

@@ -20,9 +20,10 @@ FROM {BASE_IMAGE}
 # Change timezone to UTC
 RUN set -x \
   && apt-get update \
-  && apt-get install -y --no-install-recommends ca-certificates lua5.3 lua-socket lua-luaossl \
+  && apt-get install -y --no-install-recommends ca-certificates lua5.3 lua-socket lua-luaossl libcap2-bin \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man /tmp/* \
-  && echo 'Etc/UTC' > /etc/timezone
+  && echo 'Etc/UTC' > /etc/timezone \
+  && setcap 'cap_net_bind_service=+ep' $(which haproxy)
 
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8
