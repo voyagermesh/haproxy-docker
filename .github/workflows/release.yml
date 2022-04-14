@@ -27,13 +27,35 @@ jobs:
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Build alpine image
+        id: publish-alpine
         run: |
           cd alpine
           make ci
           make release
 
+      - name: Scan alpine image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ steps.publish-alpine.outputs.TAG }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'
+
       - name: Build debian image
+        id: publish-debian
         run: |
           cd debian
           make ci
           make release
+
+      - name: Scan debian image
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: '${{ steps.publish-debian.outputs.TAG }}'
+          format: 'table'
+          exit-code: '1'
+          ignore-unfixed: true
+          vuln-type: 'os,library'
+          severity: 'CRITICAL,HIGH'

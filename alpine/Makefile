@@ -57,6 +57,7 @@ docker-manifest:
 	docker manifest push $(IMAGE):$(TAG)
 	docker manifest create -a $(IMAGE):$(Mm) $(foreach PLATFORM,$(DOCKER_PLATFORMS),$(IMAGE):$(TAG)_$(subst /,_,$(PLATFORM)))
 	docker manifest push $(IMAGE):$(Mm)
+	@echo ::set-output name=TAG::$(IMAGE):$(TAG)
 
 .PHONY: release
 release:
