@@ -16,6 +16,9 @@ RUN set -x \
 
 FROM {BASE_IMAGE}
 
+ARG TARGETOS
+ARG TARGETARCH
+
 # Installs required packages
 # Change timezone to UTC
 RUN set -x \
@@ -23,6 +26,12 @@ RUN set -x \
   && apt-get install -y --no-install-recommends ca-certificates lua5.3 lua-socket lua-luaossl \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man /tmp/* \
   && echo 'Etc/UTC' > /etc/timezone
+
+# CVE-2022-1586 CVE-2022-1587
+RUN set -x \
+  && curl -O http://ftp.us.debian.org/debian/pool/main/p/pcre2/libpcre2-16-0_10.36-2_${TARGETARCH}.deb \
+  && dpkg -i libpcre2-16-0_10.36-2_${TARGETARCH}.deb \
+  && rm -rf libpcre2-16-0_10.36-2_${TARGETARCH}.deb
 
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8

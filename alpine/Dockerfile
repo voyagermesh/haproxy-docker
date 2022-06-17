@@ -22,6 +22,10 @@ RUN set -x \
   && apk add --update --no-cache ca-certificates tzdata lua5.3 lua-socket lua-ossl \
   && echo 'Etc/UTC' > /etc/timezone
 
+# CVE-2022-1586 CVE-2022-1587
+RUN set -x \
+  && apk add --update --upgrade --no-cache pcre2
+
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8
 
