@@ -23,6 +23,10 @@ RUN set -x \
   && echo 'Etc/UTC' > /etc/timezone \
   && setcap 'cap_net_bind_service=+ep' $(which haproxy)
 
+# CVE-2022-1586 CVE-2022-1587
+RUN set -x \
+  && apk add --update --upgrade --no-cache pcre2
+
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8
 
