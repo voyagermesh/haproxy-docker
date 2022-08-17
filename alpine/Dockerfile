@@ -27,6 +27,10 @@ RUN set -x \
 RUN set -x \
   && apk add --update --upgrade --no-cache pcre2
 
+# CVE-2022-37434
+RUN set -x \
+  && apk add --update --upgrade --no-cache zlib
+
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8
 
