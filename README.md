@@ -1,3 +1,3 @@
 # haproxy-docker
 
-HAProxy 2.6.0
+HAProxy 2.6.2
