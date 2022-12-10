@@ -29,12 +29,6 @@ RUN set -x \
   && echo 'Etc/UTC' > /etc/timezone \
   && setcap 'cap_net_bind_service=+ep' $(which haproxy)
 
-# CVE-2022-1586 CVE-2022-1587
-RUN set -x \
-  && curl -O http://ftp.us.debian.org/debian/pool/main/p/pcre2/libpcre2-16-0_10.36-2_${TARGETARCH}.deb \
-  && dpkg -i libpcre2-16-0_10.36-2_${TARGETARCH}.deb \
-  && rm -rf libpcre2-16-0_10.36-2_${TARGETARCH}.deb
-
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8
 
