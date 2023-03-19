@@ -1,6 +1,6 @@
 SHELL=/bin/bash -o pipefail
 
-REGISTRY   ?= appscode
+REGISTRY   ?= ghcr.io/voyagermesh
 BIN        ?= haproxy
 IMAGE      := $(REGISTRY)/$(BIN)
 GIT_TAG    ?= $(shell git describe --exact-match --abbrev=0 2>/dev/null || echo "")
@@ -69,7 +69,7 @@ release:
 
 .PHONY: version
 version:
-	@echo ::set-output name=version::$(VERSION)
+	@echo version=$(VERSION)
 
 .PHONY: fmt
 fmt:
