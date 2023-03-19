@@ -16,6 +16,8 @@ RUN set -x \
 
 FROM {BASE_IMAGE}
 
+LABEL org.opencontainers.image.source https://github.com/voyagermesh/haproxy
+
 ARG TARGETOS
 ARG TARGETARCH
 
