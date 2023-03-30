@@ -33,6 +33,10 @@ RUN set -x \
 RUN set -x \
   && apk add --update --upgrade --no-cache zlib
 
+# CVE-2022-41723
+RUN set -x \
+  && rm -rf /usr/local/bin/dataplaneapi
+
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8
 

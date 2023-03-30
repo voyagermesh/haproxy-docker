@@ -31,6 +31,10 @@ RUN set -x \
   && echo 'Etc/UTC' > /etc/timezone \
   && setcap 'cap_net_bind_service=+ep' $(which haproxy)
 
+# CVE-2022-41723
+RUN set -x \
+  && rm -rf /usr/local/bin/dataplaneapi
+
 ENV TZ     :/etc/localtime
 ENV LANG   en_US.utf8
 
