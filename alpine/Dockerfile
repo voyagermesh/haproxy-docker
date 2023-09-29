@@ -21,7 +21,7 @@ LABEL org.opencontainers.image.source https://github.com/voyagermesh/haproxy
 # Installs required packages
 # Change timezone to UTC
 RUN set -x \
-  && apk add --update --no-cache ca-certificates tzdata lua5.3 lua-socket lua-ossl libcap \
+  && apk add --update --no-cache ca-certificates tzdata lua5.4 lua5.4-libs lua-json4 lua-socket lua-ossl libcap \
   && echo 'Etc/UTC' > /etc/timezone \
   && setcap 'cap_net_bind_service=+ep' $(which haproxy)
 
