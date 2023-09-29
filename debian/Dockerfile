@@ -26,7 +26,7 @@ ARG TARGETARCH
 RUN set -x \
   && apt-get update \
   && apt-get upgrade -y \
-  && apt-get install -y --no-install-recommends ca-certificates lua5.3 lua-socket lua-luaossl libcap2-bin \
+  && apt-get install -y --no-install-recommends ca-certificates liblua5.4-0 lua-json lua-socket lua-luaossl libcap2-bin \
   && rm -rf /var/lib/apt/lists/* /usr/share/doc /usr/share/man /tmp/* \
   && echo 'Etc/UTC' > /etc/timezone \
   && setcap 'cap_net_bind_service=+ep' $(which haproxy)
